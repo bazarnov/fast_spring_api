@@ -1,2 +1,1 @@
-# fast_spring_api
-Wrapper to FastSpring API
+# Wrapper to FastSpring API
