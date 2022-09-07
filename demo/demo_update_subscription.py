@@ -1,6 +1,6 @@
 
-from fast_spring_api.subscription import Subscription
-from fast_spring_api.auth import FastSpringAuth
+from fast_spring_api.modules.subscription import Subscription
+from fast_spring_api.main.auth import FastSpringAuth
 
 # declare the list of subscriptions to update
 input_data: list = [

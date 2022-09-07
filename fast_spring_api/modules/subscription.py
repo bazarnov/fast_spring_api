@@ -2,7 +2,7 @@
 
 from typing import Any, Iterable, Mapping, Union
 
-from fast_spring_api.api import FastSpringAPI
+from fast_spring_api.main.api import FastSpringAPI
 
 
 class Subscription(FastSpringAPI):

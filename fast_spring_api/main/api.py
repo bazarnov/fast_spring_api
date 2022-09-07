@@ -7,8 +7,8 @@ from pyparsing import abstractmethod
 
 import requests
 
-from fast_spring_api.logger import FastSpringLogger
-from fast_spring_api.auth import FastSpringAuth
+from fast_spring_api.main.logger import FastSpringLogger
+from fast_spring_api.main.auth import FastSpringAuth
 
 class FastSpringAPI(ABC):
         
