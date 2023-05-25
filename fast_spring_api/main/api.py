@@ -36,7 +36,7 @@ class FastSpringAPI(ABC):
     
     @property
     def _headers(self) -> Mapping[str, Any]:
-        return {'Content-Type': 'application/json', **self.auth}
+        return {'Content-Type': 'application/json', "accept": "application/json", **self.auth}
     
     def _request_kwargs(
         self, 
@@ -58,18 +58,21 @@ class FastSpringAPI(ABC):
             
         return request_kwargs
     
-    def _send_request(self, payload: Mapping[str, Any]):
+    def _send_request(self, payload: Mapping[str, Any], id: str = None):
         """
         @ payload: the list of JSON formated params to send to the endpoint
         """
         url = f"{self._base_url}/{self.endpoint}/"
+        if id:
+            url = url + id
         request_kwargs = self._request_kwargs(url, self._headers, payload)
         response = requests.request(**request_kwargs)
         if self.http_method == "POST":
-            self._get_request_result(response)
-        # TODO: add parse_response for GET requests
-                    
-    def _get_request_result(self, response: requests.Response):
+            self._get_post_request_result(response)
+        else:
+            raise NotImplementedError(f"HTTP_METHOD: {self.http_method} was used, but the result could not be parsed, because it's not implemented.")
+           
+    def _get_post_request_result(self, response: requests.Response):
         if response.status_code == 200:
             result = response.json().get(self.endpoint)
             self.logger.success(result)
@@ -80,4 +83,3 @@ class FastSpringAPI(ABC):
             status = response.status_code
             reason = str(response.reason)
             self.logger.error(f'Status: {status}, Reason: {reason}')
-        
