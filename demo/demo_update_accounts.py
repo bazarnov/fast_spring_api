@@ -23,9 +23,11 @@ password = "api_passowrd"
 fs_auth = FastSpringAuth(user, password)
 
 # REPLACE `Phone` for each account listed in the file
-processed_number = all_accounts_to_update
+count = 0
 for account in accounts:
     UpdateAccounts(fs_auth).update(id = account.get("account"), input_data = {"phone": "non-available"})
-    processed_number =- 1
-    print(f"Progress: {processed_number}/{all_accounts_to_update}")
+    count += 1
+    # progress in %
+    progress = round(count/all_accounts_to_update, 3)*100
+    print(f"Progress: {progress}")
    
